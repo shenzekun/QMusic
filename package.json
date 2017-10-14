@@ -1,0 +1,20 @@
+{
+  "name": "QMusic",
+  "version": "1.0.0",
+  "description": "qq 音乐",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenzekun/QMusic.git"
+  },
+  "keywords": [],
+  "author": "shenzekun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenzekun/QMusic/issues"
+  },
+  "homepage": "https://github.com/shenzekun/QMusic#readme"
+}
