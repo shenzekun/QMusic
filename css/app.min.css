@@ -1,4 +1,4 @@
-*{box-sizing:border-box}body{margin:0}#header{display:flex;align-items:center;height:44px;background:#31c27c}#header #logo{height:25px;margin-left:10px}body{background:#f4f4f4}
+*{box-sizing:border-box}body{margin:0}#header{display:flex;align-items:center;height:44px;background:#31c27c}#header #logo{height:25px;margin-left:10px}.qq-slider{width:100%;overflow:hidden}.qq-slider .qq-slider-wrap{display:flex;transition:all .5s}.qq-slider .qq-slider-item>a{display:block}.qq-slider .qq-slider-item>a img{width:100%}body{background:#f4f4f4}
  
 
  /*# sourceMappingURL= app.min.css.map */
