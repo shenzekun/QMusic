@@ -1,4 +1,4 @@
-class Silder {
+ export class Slider {
   constructor(options = {}) {
     this.el = options.el;
     this.slides = options.slides;
@@ -11,13 +11,11 @@ class Silder {
     this.el.innerHTML = `<div class="qq-slider-wrap"></div>`;
     this.wrap = this.el.firstElementChild;
     this.wrap.style.width = `${this.slides.length * 100}%`;
-    this.wrap.innerHTML = this.slides
-      .map(slide => `<div class="qq-slider-item">
+    this.wrap.innerHTML = this.slides.map(slide => `<div class="qq-slider-item">
           <a href="${slide.link}">
             <img src="${slide.image}">
           </a>
-      </div>`
-      ).join("");
+      </div>`).join('');  
   }
   start() {
     setInterval(this.next.bind(this), this.interval);
@@ -29,6 +27,6 @@ class Silder {
       this.index = 0;
       return;
     }
-    this.wrap.style.transform = `translate(-${this.index*100 /this.slides.length}%)`;
+    this.wrap.style.transform = `translate(-${this.index * 100 / this.slides.length}%)`;
   }
 }

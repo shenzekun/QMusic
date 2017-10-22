@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>qq音乐</title>
-    <link rel="stylesheet" href="./css/app.min.css">
+    <link rel="stylesheet" href="./dist/app.css">
 </head>
+
 <body>
     <header id="header">
         <img src="./images/logo.png" alt="qq音乐" id="logo">
     </header>
-    <div class="qq-slider" id="slider">
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item active" data-view=".rec-view" data-role="tab">推荐</li>
+            <li class="nav-item" data-view=".rank-view" data-role="tab">排行榜</li>
+            <li class="nav-item" data-view=".search-view" data-role="tab">搜索</li>
+        </ul>
+    </nav>
+    <div class="tab-contents">
+        <div class="rec-view tab-content">
+            <div class="qq-slider" id="slider"></div>
+            <div class="radios">
+                <h2 class="title">电台</h2>
+                <div class="list"></div>
+            </div>
+            <div class="playlists">
+                <h2 class="title">热门歌单</h2>
+                <div class="list"></div>
+            </div>
+        </div>
+        <div class="rank-view tab-content hide">
+            排行榜
+        </div>
+        <div class="search-view tab-content hide">
+            搜索
+        </div>
     </div>
-    <script src="./js/silder.js"></script>
-    <script src="./js/app.js"></script>
+    <script src="./dist/app.js"></script>
+
 </body>
+
 </html>
