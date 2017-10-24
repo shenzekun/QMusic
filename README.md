@@ -1,6 +1,6 @@
 # QMusic
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/shenzekun/QMusic/blob/master/LICENSE)
 
 qq 音乐
 
