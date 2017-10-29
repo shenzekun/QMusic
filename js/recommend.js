@@ -41,7 +41,6 @@ export class Recommend {
   }
 
   render() {
-    console.log(document.querySelector(".loading").classList);
     document.querySelector(".loading").classList.add("hide");
     this.renderSlider(this.json.data.slider);
     this.renderRadios(this.json.data.radioList);
@@ -79,6 +78,7 @@ export class Recommend {
           `<div class="list-item">
             <div class="list-media">
                 <img class="lazyload" data-src="${list.picUrl}">
+                <span class="listen_count"><span class="icon icon_listen"></span>${(list.accessnum/10000).toFixed(1)+"万"}</span>
                 <span class="icon icon_play"></span>
             </div>
             <div class="list-info">

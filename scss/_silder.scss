@@ -2,9 +2,30 @@
   width: 100%;
   overflow: hidden;
   min-height: 160px;
+  position: relative;
   .qq-slider-wrap {
     display: flex;
     transition: all .5s;
+  }
+  .ui-slider-dots {
+    position: absolute;
+    bottom: 11px;
+    left: 0;
+    right: 0;
+    padding: 0 6px;
+    text-align: center;
+    margin: 0;
+    >b{
+      display: inline-block;
+      margin: 0 3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(144,144,144,.8);
+    }
+    >.active{
+      background: #fff;
+    }
   }
   .qq-slider-item {
     > a {

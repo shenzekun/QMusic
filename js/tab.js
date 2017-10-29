@@ -1,4 +1,4 @@
-document.addEventListener("click", event => {
+document.addEventListener("touchstart", event => {
   let target = event.target;
   if (target.dataset.role !== "tab") return;
   [].forEach.call(target.parentElement.children, tab => {

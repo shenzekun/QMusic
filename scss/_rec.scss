@@ -34,10 +34,24 @@
           text-overflow: ellipsis;
         }
       }
+      .listen_count{
+        position: absolute;
+        left: 5px;
+        bottom: 7px;
+        line-height: 12px;
+        color: #fff;
+      }
       .icon {
         background-image: url("../images/list_sprite.png");
         background-repeat: no-repeat;
         background-size: 24px 60px;
+      }
+      .icon_listen{
+        float: left;
+        width: 10px;
+        height: 10px;
+        background-position: 0 -50px;
+        margin-right: 5px;
       }
       .icon_play {
         height: 24px;
