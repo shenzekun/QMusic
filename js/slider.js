@@ -7,7 +7,7 @@ export class Slider {
     this.touchX  //触控开始的手指最初落点
     this.ready_moved = true  //判断每次滑动开始的标记变量
     this.render();
-    this.bindEvent()
+    this.bindEvent();
     this.start();    
   }
   render() {
@@ -32,12 +32,15 @@ export class Slider {
       </div>`
       ).join("");
   }
+  //自动播放
   autoPlay() {
     this.timer = setInterval(this.next.bind(this), this.interval);
   }
+  //开始
   start() {
     this.autoPlay();
   }
+  //下一张
   next() {
     this.index += 1;
     if (this.index%this.slides.length === 0) {
@@ -49,6 +52,8 @@ export class Slider {
     this.wrap.style.transform = `translate(-${this.index *100 / this.slides.length}%)`;
     this.setActiveDot();
   }
+
+  //上一张
   pre() {
     if (this.index-1<0) {
       this.index=this.slides.length+this.index-1;
@@ -86,7 +91,6 @@ export class Slider {
     }
   }
   touchend(e) {
-    e.preventDefault();
     let touchX = this.touchX;
     let _this = this
     if(!_this.ready_moved) {
