@@ -12,6 +12,7 @@ export class Recommend {
         .then(json => (this.json = json))
         .then(() => this.render());
     } else {
+      //如果不兼容 fetch
       let xhr;
       let _this = this;
       if (window.XMLHttpRequest) {

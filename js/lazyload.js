@@ -16,7 +16,6 @@ export function lazyload() {
     });
   } else {
     let onscroll = throttle(function() {
-      console.log(imgs.length);
       imgs = imgs.filter(img => img.classList.contains("lazyload"));
       imgs.forEach(img => isVisible(img) && loadImage(img));
       //如果图片到没有了，移除监听事件提高性能
@@ -67,7 +66,6 @@ function loadImage(img, callback) {
   image.onload = () => {
     img.src = image.src;
     img.classList.remove("lazyload");
-    if (Object.prototype.toString.call(callback) === "[object Function]")
-      callback();
+    if (Object.prototype.toString.call(callback) === "[object Function]"){ callback()}
   };
 }
