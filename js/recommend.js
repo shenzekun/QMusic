@@ -1,92 +1,82 @@
-import { RECOMMEND_URL } from "./content.js";
-import { Slider } from "./slider.js";
-import { lazyload } from "./lazyload.js";
+import { RECOMMEND_URL } from './content.js'
+import { Slider } from './slider.js'
+import { lazyload } from './lazyload.js'
 export class Recommend {
   constructor(el) {
-    this.el = el;
+    this.el = el
   }
   start() {
-    if ("fetch" in window) {
+    if ('fetch' in window) {
       fetch(RECOMMEND_URL)
         .then(res => res.json())
         .then(json => (this.json = json))
-        .then(() => this.render());
+        .then(() => this.render())
     } else {
       //如果不兼容 fetch
-      let xhr;
-      let _this = this;
+      let xhr
+      let _this = this
       if (window.XMLHttpRequest) {
-        xhr = new XMLHttpRequest();
+        xhr = new XMLHttpRequest()
       } else {
         //兼容 ie6
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        xhr = new ActiveXObject('Microsoft.XMLHTTP')
       }
       //连接
-      xhr.open("GET", RECOMMEND_URL, true);
+      xhr.open('GET', RECOMMEND_URL, true)
       //发送请求
-      xhr.send();
+      xhr.send()
 
       xhr.onreadystatechange = function() {
         //读取完成
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            _this.json = JSON.parse(xhr.responseText);
-            _this.render();
+            _this.json = JSON.parse(xhr.responseText)
+            _this.render()
           } else {
-            console.log("失败" + xhr.status);
+            console.log('失败' + xhr.status)
           }
         }
-      };
+      }
     }
   }
 
   render() {
-    document.querySelector(".loading").classList.add("hide");
-    this.renderSlider(this.json.data.slider);
-    this.renderRadios(this.json.data.radioList);
-    this.renderPlayList(this.json.data.songList);
-    lazyload();
+    document.querySelector('.loading').classList.add('hide')
+    this.renderSlider(this.json.data.slider)
+    this.renderRadios(this.json.data.radioList)
+    this.renderPlayList(this.json.data.songList)
+    lazyload()
   }
 
   renderSlider(slides) {
     this.slider = new Slider({
-      el: this.el.querySelector("#slider"),
+      el: this.el.querySelector('#slider'),
       slides: slides.map(slide => ({
         link: slide.linkUrl,
         image: slide.picUrl
       }))
-    });
+    })
   }
   renderRadios(radios) {
-    document.querySelector(".radios .list").innerHTML = radios
-      .map(
-        radio =>
-          ` <div class="list-item">
+    document.querySelector('.radios .list').innerHTML = radios.map(radio => `<div class="list-item">
                 <div class="list-media">
                     <img data-src="${radio.picUrl}" class="lazyload">
                     <span class="icon icon_play"></span>
                 </div>
                 <div class="list-info">${radio.Ftitle}</div>
-            </div>`
-      )
-      .join("");
+            </div>`).join('')
   }
   renderPlayList(playlists) {
-    document.querySelector(".playlists .list").innerHTML = playlists
-      .map(
-        list =>
-          `<div class="list-item">
+    document.querySelector('.playlists .list').innerHTML = playlists.map(list => `<div class="list-item">
             <div class="list-media">
                 <img class="lazyload" data-src="${list.picUrl}">
-                <span class="listen_count"><span class="icon icon_listen"></span>${(list.accessnum/10000).toFixed(1)+"万"}</span>
+                <span class="listen_count"><span class="icon icon_listen"></span>${(list.accessnum / 10000).toFixed(1) + '万'}</span>
                 <span class="icon icon_play"></span>
             </div>
             <div class="list-info">
                 <div class="list_tit">${list.songListDesc}</div>
                 <div class="list-text"></div>
             </div>
-        </div>`
-      )
-      .join("");
+        </div>`).join('')
   }
 }

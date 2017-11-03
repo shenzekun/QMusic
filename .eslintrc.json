@@ -1,0 +1,32 @@
+{
+  "extends": "standard",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "indent": ["error", 2],//强制使用一致的缩进,为2
+    "semi": ["error", "never"],//分号不使用
+    "no-inline-comments": "off",//禁止在代码后使用内联注释
+    "eqeqeq": "warn",//要求使用 === 和 !==
+    "comma-dangle": [0],//要求或禁止末尾逗号
+    "no-undef": [0],//禁用未声明的变量
+    "id-length": [0],//强制标识符的最小和最大长度
+    "no-multi-spaces": [1],//禁止使用多个空格
+    "space-before-function-paren": [0],//强制在 function的左括号之前使用一致的空格
+    "comma-spacing": [0],//强制在逗号前后使用一致的空格
+    "new-cap": [1],//要求构造函数首字母大写
+    "vars-on-top": [0],//要求所有的 var 声明出现在它们所在的作用域顶部
+    "no-unused-vars": [0],//禁止出现未使用过的变量
+    "space-before-blocks":[0],//强制在块之前使用一致的空格
+    "spaced-comment":[0],//强制在注释中 // 或 /* 使用一致的空格
+    "dot-notation":[0],//强制尽可能地使用点号
+    "no-multiple-empty-lines":[1],//禁止出现多行空行
+    "no-trailing-spaces":[0],//	禁用行尾空格
+    "semi-spacing":[0],//强制分号之前和之后使用一致的空格
+    "no-loop-func":[0],//禁止在循环中出现 function 声明和表达式
+    "eol-last":[0],//要求或禁止文件末尾存在空行
+    "no-new-func":[0],//禁止对 Function 对象使用 new 操作符
+    "max-len": [0]//强制一行的最大长度
+  }
+}
