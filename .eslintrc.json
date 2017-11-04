@@ -5,8 +5,9 @@
     "node": true
   },
   "rules": {
-    "indent": ["error", 2],//强制使用一致的缩进,为2
-    "semi": ["error", "never"],//分号不使用
+    "indent": ["error", 4],//强制使用一致的缩进,为2
+    "semi": [0],//分号不使用
+    "quotes":"warn",
     "no-inline-comments": "off",//禁止在代码后使用内联注释
     "eqeqeq": "warn",//要求使用 === 和 !==
     "comma-dangle": [0],//要求或禁止末尾逗号
