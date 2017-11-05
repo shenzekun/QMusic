@@ -10,6 +10,26 @@ export class TopList {
                 .then(res => res.json())
                 .then(json => (this.list = json.data.topList))
                 .then(() => this.render());
+        } else {
+            let xhr
+            let _this = this
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest()
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            xhr.open('GET',TOPLIST_URL,true)
+            xhr.send()
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        _this.json = JSON.parse(xhr.responseText)
+                        _this.render()
+                    } else {
+                        console.log('失败' + xhr.status)
+                    }
+                }
+            }
         }
     }
     render() {
