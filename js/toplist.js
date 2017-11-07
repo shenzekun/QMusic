@@ -4,6 +4,10 @@ export class TopList {
     constructor(el) {
         this.el = el;
     }
+    /**
+     * @description 开始
+     * @memberof TopList
+     */
     start() {
         if ('fetch' in window) {
             fetch(TOPLIST_URL)
@@ -32,6 +36,11 @@ export class TopList {
             }
         }
     }
+
+    /**
+     * @description 渲染
+     * @memberof TopList
+     */
     render() {
         document.querySelector('.toplist').innerHTML = this.list.map(item => `<li class="top-item">
         <div class="top-item-media">
@@ -49,6 +58,12 @@ export class TopList {
         lazyload(this.el.querySelectorAll('.lazyload'));
     }
 
+    /**
+     * @description 获取歌
+     * @param {any} songs 返回字符串
+     * @returns 
+     * @memberof TopList
+     */
     songlist(songs) {
         return songs.map((song,i) => `<li class="top-item-song">
         <i class="song-index">${i + 1}</i>

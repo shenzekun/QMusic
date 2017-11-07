@@ -29,7 +29,12 @@ export function lazyload() {
     }
 }
 
-//节流
+/**
+ * @description 节流
+ * @param {any} func 函数
+ * @param {any} wait 时间
+ * @returns 
+ */
 function throttle(func, wait) {
     let context, args, timer;
     let prev = 0;
@@ -47,7 +52,11 @@ function throttle(func, wait) {
         }
     };
 }
-//判断是否可见
+/**
+ * @description 判断元素是否可见
+ * @param {any} img 
+ * @returns 
+ */
 function isVisible(img) {
     let { top, left, right, bottom } = img.getBoundingClientRect();
     let windowWidth = document.documentElement.clientWidth;
@@ -58,7 +67,11 @@ function isVisible(img) {
     );
 }
 
-//加载图片
+/**
+ * @description 加载图片
+ * @param {any} img 
+ * @param {any} callback 
+ */
 function loadImage(img, callback) {
     let image = new Image();
     image.src = img.dataset.src;

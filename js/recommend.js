@@ -5,6 +5,11 @@ export class Recommend {
     constructor(el) {
         this.el = el;
     }
+
+    /**
+     * @description 开始
+     * @memberof Recommend
+     */
     start() {
         if ('fetch' in window) {
             fetch(RECOMMEND_URL)
@@ -39,7 +44,10 @@ export class Recommend {
             };
         }
     }
-
+    /**
+     * @description 渲染数据
+     * @memberof Recommend
+     */
     render() {
         document.querySelector('.loading').classList.add('hide');
         this.renderSlider(this.json.data.slider);
@@ -47,7 +55,11 @@ export class Recommend {
         this.renderPlayList(this.json.data.songList);
         lazyload();
     }
-
+    /**
+     * @description 渲染轮播图
+     * @param {any} slides 
+     * @memberof Recommend
+     */
     renderSlider(slides) {
         this.slider = new Slider({
             el: this.el.querySelector('#slider'),
@@ -57,6 +69,12 @@ export class Recommend {
             }))
         });
     }
+
+    /**
+     * @description 渲染电台部分
+     * @param {any} radios 
+     * @memberof Recommend
+     */
     renderRadios(radios) {
         document.querySelector('.radios .list').innerHTML = radios.map(radio => `<div class="list-item">
                 <div class="list-media">
@@ -66,6 +84,12 @@ export class Recommend {
                 <div class="list-info">${radio.Ftitle}</div>
             </div>`).join('');
     }
+
+    /**
+     * @description 渲染推荐页的热门歌单
+     * @param {any} playlists 
+     * @memberof Recommend
+     */
     renderPlayList(playlists) {
         document.querySelector('.playlists .list').innerHTML = playlists.map(list => `<div class="list-item">
             <div class="list-media">
