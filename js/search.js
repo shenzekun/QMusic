@@ -81,6 +81,7 @@ export class Search {
     search(keyword, page) {
         //刚进来时 keyword为 undefined ，因为没有 enter
         if (keyword === undefined) keyword = ''
+        if (keyword === '') return
         //如果已经搜索过，并且没有改动 keyword 那么直接返回
         if (this.keyword === keyword && this.songsObject[page || this.page]) return
         if (this.keyword !== keyword) this.reset()
