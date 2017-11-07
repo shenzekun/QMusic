@@ -12,7 +12,7 @@ export class Search {
         this.fetching = false //正在 fetch
         window.addEventListener('scroll',this.onScroll.bind(this))
     }
-    
+
     /**
      * @description enter 事件
      * @param {any} event 
@@ -64,7 +64,7 @@ export class Search {
     /**
      * @description  处理搜索的 url
      * @param {any} keyword 用户输入的数据
-     * @param {number} [page=1]  默认为1
+     * @param {number} [page=1]  页数默认为1
      * @returns url
      * @memberof Search
      */
