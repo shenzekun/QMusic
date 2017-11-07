@@ -2,10 +2,22 @@
 #header{
     display: flex;
     align-items: center;
+    position: relative;
     height: $header-height;
     background: $header-background;
     #logo{
         height: $logo-height;
         margin-left: 10px;
+    }
+    .btn_download {
+        position: absolute;
+        right: 10px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+        padding: 0 12px;
+        background: #149c5a;
+        color: #fff;
+        border-radius: 99px;
     }
 }
