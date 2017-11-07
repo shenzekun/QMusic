@@ -12,10 +12,17 @@ export class Search {
     onEnter() {
         //获取值
         let keyword = event.target.value.trim()
-        // if (!keyword) return this.reset()
+        //如果为空，去除显示的歌
+        if (!keyword) return this.reset()
         //如果不是 enter 直接返回
         if (event.keyCode !== 13) return
         this.search(keyword)
+    }
+    //重置
+    reset() {
+        this.page = 1
+        this.keyword = ''
+        this.songs.innerHTML = ''
     }
     handleSearchUrl(keyword,page = 1) {
         return `${SEARCH_URL}?keyword=${keyword}&page=${page}`
@@ -39,7 +46,6 @@ export class Search {
               <div class="song-artist">${artist}</div>
             </a>`
         }).join('')
-        console.log(html)
         this.songs.insertAdjacentHTML('beforeend', html)
     }
 }
