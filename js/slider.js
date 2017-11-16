@@ -78,7 +78,6 @@ export class Slider {
         if (this.index === this.slides.length) { //5
             this.index = 0;
             this.wrap.style.left = '0';
-            console.log('dsd')
         }
         this.index += 1;
         this.animate(this.wrap,-this.width * this.index)
@@ -102,7 +101,7 @@ export class Slider {
             if (leader === target) {
                 clearInterval(obj.timer);
             }
-        },50);
+        },30);
     }
 
     /**
