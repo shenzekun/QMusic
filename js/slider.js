@@ -35,7 +35,7 @@ export class Slider {
       </div>`).join('');
         this.width = this.el.clientWidth
         let first = this.wrap.firstElementChild;
-        this.wrap.insertAdjacentHTML('beforeend', this.domToString(first)); //无缝链接拷贝第一个到到容器的最后一个
+        this.wrap.insertAdjacentHTML('beforeend', this.domToString(first)); //无缝滚动拷贝第一个到到容器的最后一个
     }
 
     /**
@@ -74,9 +74,11 @@ export class Slider {
      * @memberof Slider
      */
     next() {
+        //先判断在加
         if (this.index === this.slides.length) { //5
             this.index = 0;
             this.wrap.style.left = '0';
+            console.log('dsd')
         }
         this.index += 1;
         this.animate(this.wrap,-this.width * this.index)
@@ -93,15 +95,14 @@ export class Slider {
         clearInterval(obj.timer);
         obj.timer = setInterval(function () {
             var leader = obj.offsetLeft;
-            var step = (target - leader) / 10
+            var step = (target - leader) / 3
             step = step > 0 ? Math.ceil(step) : Math.floor(step);
-            console.log('step' + step);
             leader = leader + step;
             obj.style.left = leader + 'px';
             if (leader === target) {
                 clearInterval(obj.timer);
             }
-        }, 30);
+        },50);
     }
 
     /**
