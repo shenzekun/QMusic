@@ -127,11 +127,11 @@ export class Slider {
         let len = this.dots.children.length;
         for (let i = 0; i <= len; i++) {
             let b = document.getElementsByTagName('b')[i];
-            if (b) b.classList.remove('active');
+            if (b) b.classList.remove('active');//判断 b 是否存在
             if (this.index === i) {
                 if (b) b.classList.add('active');
             }
-            if (this.index === 5) {
+            if (this.index === 5) { //如果 index 等于5 那么将圆点变为第一个
                 b = document.getElementsByTagName('b')[0]
                 b.classList.add('active');
             }
