@@ -2,7 +2,7 @@ export class Slider {
     constructor(options = {}) {
         this.el = options.el;
         this.slides = options.slides;
-        this.interval = options.interval || 3000;
+        this.interval = options.interval || 2000;
         this.index = 0;
         this.width = 0;//每张图片的大小的宽度
         this.touchX = 0; //触控开始的手指最初落点
