@@ -3,9 +3,8 @@ import { Slider } from './slider.js';
 import { lazyload } from './lazyload.js';
 export class Recommend {
     constructor(el) {
-        this.el = el;
+        this.el = el;   
     }
-
     /**
      * @description 开始
      * @memberof Recommend

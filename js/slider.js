@@ -10,8 +10,18 @@ export class Slider {
         this.render();
         this.bindEvent();
         this.start();
+        this.onresize();
     }
-
+    /**
+     * @description 当窗口发生变化的时候，获取屏幕宽度，使图片发生改变
+     * @memberof Slider
+     */
+    onresize(){
+        let _this = this;
+        window.addEventListener('resize',function(){
+            _this.width = _this.el.clientWidth;
+        })
+    }
     /**
      * @description 渲染
      * @memberof Slider
