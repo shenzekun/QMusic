@@ -45,7 +45,7 @@ export class TopList {
         document.querySelector('.toplist').innerHTML = this.list.map(item => `<li class="top-item">
         <div class="top-item-media">
           <a href='https://y.qq.com/w/toplist.html?ADTAG=myqq&from=myqq&channel=10007100&id=${item.id}&type=top'>
-            <img class="lazyload" data-src="${item.picUrl.replace('http://', 'https://')}" src="../images/default_pic.jpg">
+            <img class="lazyload" data-src="${item.picUrl.replace('http://', 'https://')}" src="./images/default_pic.jpg">
             <span class="listen_count"><i class="icon icon-listen"></i>${(item.listenCount / 10000).toFixed(1) + '万'}</span>
           </a>
         </div>
