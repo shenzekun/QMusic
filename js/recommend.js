@@ -77,7 +77,7 @@ export class Recommend {
     renderRadios(radios) {
         document.querySelector('.radios .list').innerHTML = radios.map(radio => `<div class="list-item">
                 <div class="list-media">
-                    <img data-src="${radio.picUrl}" class="lazyload" src="../images/default_pic.jpg">
+                    <img data-src="${radio.picUrl}" class="lazyload" src="../../images/default_pic.jpg">
                     <span class="icon icon_play"></span>
                 </div>
                 <div class="list-info">${radio.Ftitle}</div>
