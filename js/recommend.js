@@ -93,7 +93,7 @@ export class Recommend {
         document.querySelector('.playlists .list').innerHTML = playlists.map(list => `<div class="list-item">
             <a href='https://y.qq.com/w/taoge.html?ADTAG=myqq&from=myqq&channel=10007100&id=${list.id}'>
             <div class="list-media">
-                <img class="lazyload" data-src="${list.picUrl}">
+                <img class="lazyload" data-src="${list.picUrl}" src="../images/default_pic.jpg">
                 <span class="listen_count"><span class="icon icon_listen"></span>${(list.accessnum / 10000).toFixed(1) +
                     '万'}</span>
                 <span class="icon icon_play"></span>
