@@ -104,7 +104,7 @@ export class Slider {
         clearInterval(obj.timer);
         obj.timer = setInterval(function () {
             var leader = obj.offsetLeft;
-            var step = (target - leader) / 3
+            var step = (target - leader) / 2
             step = step > 0 ? Math.ceil(step) : Math.floor(step);
             leader = leader + step;
             obj.style.left = leader + 'px';
@@ -154,6 +154,7 @@ export class Slider {
      */
     bindEvent() {
         this.wrap.addEventListener('touchstart', this.touchstart.bind(this));
+        this.wrap.addEventListener('touchmove',this.touchmove.bind(this));
         this.wrap.addEventListener('touchend', this.touchend.bind(this));
     }
     /**
@@ -162,13 +163,46 @@ export class Slider {
      * @memberof Slider
      */
     touchstart(e) {
+        clearInterval(this.timer);
         if (this.ready_moved) {
             let touch = e.targetTouches[0];
             this.touchX = touch.clientX;
             this.ready_moved = false;
         }
     }
-
+    /**
+     * @description touchmove 事件
+     * @param {any} e 
+     * @memberof Slider
+     */
+    touchmove(e) {
+        clearInterval(this.timer);
+        if (!this.ready_moved) {
+            let touchX = this.touchX;
+            let move = e.changedTouches[0];
+            let moveAt = move.clientX;
+            let diff = moveAt - this.touchX;
+            let offset = -this.index * this.width;//一张图片的偏移量
+            console.log(-this.slides.length * this.width)       
+            if (diff > 0 && diff <= this.width && (offset + diff) < 0) { //向右移
+                this.animate(this.wrap,offset + diff);
+            } else if (diff < 0 && Math.abs(diff) <= this.width && (offset - Math.abs(diff)) > (-this.slides.length * this.width)) { //向左移
+                this.animate(this.wrap,offset - Math.abs(diff))
+            } else if ((offset + diff) > 0) { //当临界值在第一张向左移的时候
+                if (this.index === 0) {
+                    this.index = this.slides.length
+                    this.wrap.style.left = `-${this.index * this.width}px`;
+                }
+                this.animate(this.wrap,-(this.index * this.width) + diff)
+            } else if (offset - diff < this.width * this.slides.length) { //当最后一张向右移的时候
+                if (this.index === this.slides.length) {
+                    this.index = 0;
+                    this.wrap.style.left = `-${this.index * this.width}px`;
+                }
+                this.animate(this.wrap,-(this.index * this.width) - diff);
+            }
+        }
+    }
     /**
      * @description touchend事件
      * @param {any} e 
@@ -178,18 +212,21 @@ export class Slider {
         let touchX = this.touchX;
         let _this = this;
         if (!_this.ready_moved) {
+            clearInterval(_this.timer);
             let release = e.changedTouches[0];
             let releasedAt = release.clientX;
             let diff = releasedAt - _this.touchX;
-            if (diff > 50) {
+            if (diff > (_this.width / 2)) { //当右移滑动距离大于图片宽度的一半时
                 _this.pre();
-                clearInterval(_this.timer);
-                this.autoPlay();
+                _this.autoPlay();
                 _this.ready_moved = true;
-            } else if (diff < -50) {
+            } else if (diff < -(_this.width / 2)) { //当左移滑动距离小于宽度的一半时（-400px < 360px）
                 _this.next();
-                clearInterval(_this.timer);
-                this.autoPlay();
+                _this.autoPlay();
+                _this.ready_moved = true;
+            } else { //回到原来的图片
+                _this.animate(_this.wrap,-_this.index * _this.width);
+                _this.autoPlay();
                 _this.ready_moved = true;
             }
         }
