@@ -182,8 +182,7 @@ export class Slider {
             let move = e.changedTouches[0];
             let moveAt = move.clientX;
             let diff = moveAt - this.touchX;
-            let offset = -this.index * this.width;//一张图片的偏移量
-            console.log(-this.slides.length * this.width)       
+            let offset = -this.index * this.width;//一张图片的偏移量    
             if (diff > 0 && diff <= this.width && (offset + diff) < 0) { //向右移
                 this.animate(this.wrap,offset + diff);
             } else if (diff < 0 && Math.abs(diff) <= this.width && (offset - Math.abs(diff)) > (-this.slides.length * this.width)) { //向左移
