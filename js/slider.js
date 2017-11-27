@@ -55,11 +55,11 @@ export class Slider {
      * @memberof Slider
      */
     domToString (node) {  
-        var tmpNode = document.createElement('div');
+        let tmpNode = document.createElement('div');
         tmpNode.appendChild(node.cloneNode(true)); 
-        var str = tmpNode.innerHTML;
+        let str = tmpNode.innerHTML;
         tmpNode = node = null; // 解除引用，以便于垃圾回收  
-        return str  
+        return str;  
     } 
      
     /**
@@ -67,7 +67,7 @@ export class Slider {
      * @memberof Slider
      */
     autoPlay() {
-        this.timer = setInterval(this.next.bind(this), this.interval)
+        this.timer = setInterval(this.next.bind(this), this.interval);
     }
     
     /**
@@ -103,8 +103,8 @@ export class Slider {
     animate(obj, target) {
         clearInterval(obj.timer);
         obj.timer = setInterval(function () {
-            var leader = obj.offsetLeft;
-            var step = (target - leader) / 2
+            let leader = obj.offsetLeft;
+            let step = (target - leader) / 2
             step = step > 0 ? Math.ceil(step) : Math.floor(step);
             leader = leader + step;
             obj.style.left = leader + 'px';
@@ -176,17 +176,17 @@ export class Slider {
      * @memberof Slider
      */
     touchmove(e) {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
         clearInterval(this.timer);
         if (!this.ready_moved) {
             let move = e.changedTouches[0];
             let moveAt = move.clientX;
             let diff = moveAt - this.touchX;
             let offset = -this.index * this.width;//一张图片的偏移量
-            if (diff > 0 && diff <= this.width && (offset + diff) < 0) { //向右移
+            if (diff > 0 && diff <= this.width && (offset + diff) < 0) { //向右移，并且 diff 要小于一张图片的宽度
                 this.animate(this.wrap,offset + diff);
-            } else if (diff < 0 && Math.abs(diff) <= this.width && (offset - Math.abs(diff)) > (-this.slides.length * this.width)) { //向左移
+            } else if (diff < 0 && Math.abs(diff) <= this.width && (offset - Math.abs(diff)) > (-this.slides.length * this.width)) { //向左移,并且 diff 要小于一张图片的宽度
                 this.animate(this.wrap,offset - Math.abs(diff))
             } else if ((offset + diff) > 0) { //当临界值在第一张向左移的时候
                 if (this.index === 0) {
@@ -219,7 +219,7 @@ export class Slider {
                 _this.pre();
                 _this.autoPlay();
                 _this.ready_moved = true;
-            } else if (diff < -(_this.width / 2)) { //当左移滑动距离小于宽度的一半时（-400px < 360px）
+            } else if (diff < -(_this.width / 2)) { //当左移滑动距离小于宽度的一半时（-400px < -360px）
                 _this.next();
                 _this.autoPlay();
                 _this.ready_moved = true;
