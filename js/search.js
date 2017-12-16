@@ -1,4 +1,4 @@
-import { SEARCH_URL } from './content';
+import {searchUrl} from './helper';
 
 export class Search {
     constructor() {
@@ -62,17 +62,6 @@ export class Search {
     }
 
     /**
-     * @description  处理搜索的 url
-     * @param {any} keyword 用户输入的数据
-     * @param {number} [page=1]  页数默认为1
-     * @returns url
-     * @memberof Search
-     */
-    handleSearchUrl(keyword,page = 1) {
-        return `${SEARCH_URL}?keyword=${keyword}&page=${page}`
-    }
-
-    /**
      * @description 搜索
      * @param {any} keyword 用户输入的数据
      * @param {any} page 页数
@@ -88,7 +77,7 @@ export class Search {
         if (this.fetching || !this.isLoad) return
         this.keyword = keyword 
         this.loading()
-        fetch(this.handleSearchUrl(this.keyword,page || this.page))
+        fetch(searchUrl(this.keyword,page || this.page))
             .then(res => res.json())
             .then(json => {
                 this.page = json.data.song.curpage

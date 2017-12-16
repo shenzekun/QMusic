@@ -1,14 +1,39 @@
+import {
+    songUrl,
+    lyricsUrl,
+    albumCoverUrl
+} from './helper.js'
+
+/**
+ * @description 音乐播放器界面
+ * @export
+ * @class MusicPlayer
+ */
 export class MusicPlayer {
     constructor(el) {
         this.el = el;
-        this.xx = new Progress(document.querySelector('.progress'),1000,true);
         this.el.addEventListener('click', this.handleEvent.bind(this));
-        this.createAudio();
+        this.audio = this.createAudio();
+        this.lyrics = new LyricsPlayer(this.el.querySelector('.player-lyrics'), this.audio)
+        this.progress = new Progress(this.el.querySelector('.progress'))
+        this.fetching = false;
     }
-
+    /**
+     * @description 创建 audio
+     * @returns HTMLAudioElement
+     * @memberof MusicPlayer
+     */
     createAudio() {
-        this.audio = document.createElement('audio');
-        this.audio.loop = true;
+        let audio = document.createElement('audio');
+        audio.id = `player-${Math.floor(Math.random() * 100)}-${+new Date()}`;
+        console.log(audio.id)
+        audio.addEventListener('ended',() => {
+            this.audio.play();
+            this.lyrics.restart();
+            this.progress.restart();
+        })
+        document.body.appendChild(audio);
+        return audio;
     }
     handleEvent(event) {
         let target = event.target;
@@ -21,7 +46,6 @@ export class MusicPlayer {
             this.onPause(event);
             break;
         case target.matches('.icon-list'):
-            console.log('1')
             this.hide();
             break;
         }
@@ -32,28 +56,74 @@ export class MusicPlayer {
      * @memberof MusicPlayer
      */
     onPlay(event) {
+        if (this.fetching) return
+        this.audio.play()
+        this.lyrics.start()
+        this.progress.start()
         event.target.classList.remove('icon-play');
         event.target.classList.add('icon-pause');
     }
 
+
+    play(options = {}) {
+        if (!options) return 0;
+        this.el.querySelector('.song-name').innerText = options.songname;
+        this.el.querySelector('.song-artist').innerText = options.artist;
+        this.progress.reset(options.duration);
+        
+        let coverUrl = albumCoverUrl(options.albummid);
+        this.el.querySelector('.album-cover').src = coverUrl;
+        this.el.querySelector('.player-background').style.backgroundImage = `url(${coverUrl})`;
+
+        if (options.songid) {
+            if (this.songid !== options.songid) {
+                this.el.querySelector('.icon-action').className = 'icon-action icon-play';
+            }
+
+            this.songid = options.songid;
+            this.audio.src = songUrl(this.songid);
+            this.fetching = true;
+            fetch(lyricsUrl(this.songid)).then(res => res.json())
+                .then(res => res.json())
+                .then(json => console.log(json.lyrics))
+                .then(text => this.lyrics.reset(text))
+                .catch(() => {})
+                .then(() => {
+                    this.fetching = false;
+                })
+        }
+        this.show()
+    }
     /**
      * @description 显示暂停按钮
      * @param {any} event 
      * @memberof MusicPlayer
      */
     onPause(event) {
+        this.audio.pause()
+        this.lyrics.pause()
+        this.progress.pause()
         event.target.classList.remove('icon-pause');
         event.target.classList.add('icon-play');
     }
-    show() {}
+    show() {
+        this.el.classList.add('show');
+        document.body.classList.add('noscroll')
+    }
 
     hide() {
         this.el.classList.remove('show');
+        document.body.classList.remove('noscroll')
     }
 }
 
-export class Progress {
-    constructor(el,duration,start) {
+/**
+ * @description 进度条
+ * @export
+ * @class Progress
+ */
+class Progress {
+    constructor(el, duration, start) {
         this.$el = el;
         this.elapsed = 300;
         this.duration = duration || 0;
@@ -94,7 +164,6 @@ export class Progress {
           <div class="progress-time progress-duration"></div>
         `
     }
-
     /**
      * @description 格式化时间毫秒
      * @param {any} seconds 
@@ -109,3 +178,44 @@ export class Progress {
         return `${mins}:${secs}`
     }
 }
+
+/**
+ * @description 歌词
+ * @export
+ * @class LyricsPlayer
+ */
+class LyricsPlayer {
+    constructor(el, audio) {
+        this.$el = el
+        this.$el.innerHTML = '<div class="player-lyrics-lines"></div>'
+        this.$lines = this.$el.querySelector('.player-lyrics-lines')
+        this.$audio = audio
+        this.text = ''
+        this.index = 0
+        this.lyrics = [] //歌词数组
+        this.elapsed = 0
+        this.reset(this.text)
+    }
+    start() {
+        this.pause()
+        this.intervalId = setInterval(this.update.bind(this), 1000)
+    }
+    pause() {
+        clearInterval(this.intervalId)
+    }
+   
+    reset(text) {
+        if (text) {
+            this.text = this.formatText(text) || '';
+            this.lyrics = this.text.match(/^\[\d{2}:\d{2}.\d{2}\](.+)$/gm) || []
+        }
+    }
+
+    formatText(text) {
+        let div = document.createElement('div')
+        div.innerHTML = text
+        return div.innerText
+    }
+}
+
+LyricsPlayer.prototype.LINE_HEIGHT = 42
