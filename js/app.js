@@ -8,14 +8,10 @@ let recommend = new Recommend(document.querySelector('.rec-view')).start()
 
 let toplist = new TopList(document.querySelector('.rank-view')).start()
 
-let z = new Search().search();
+let s = new Search().search();
 let player = new MusicPlayer(document.querySelector('#player'))
-
-
 onHashChange();
 addEventListener('hashchange',onHashChange);
-
-
 function onHashChange() {
     let hash = location.hash
     if (/#player\?.+/.test(hash)) {
@@ -25,7 +21,7 @@ function onHashChange() {
             res[arr[0]] = decodeURIComponent(arr[1])
             return res
         },{})
-        console.log(options);
+        // console.log(options);
         player.play(options);
     } else {
         player.hide();
