@@ -274,7 +274,6 @@ class LyricsPlayer {
         this.$audio.ontimeupdate = function (e) {
             for (let i = 0, l = _this.lyrics.length; i < l; i++) {
                 // console.log(this.currentTime,_this.getSeconds(_this.lyrics[i]));
-                console.log('1');
                 if (this.currentTime /*当前播放的时间*/ > _this.getSeconds(_this.lyrics[i]) - 0.50) {
                     //显示到页面
                     _this.$lines.children[_this.index].classList.remove('active');
