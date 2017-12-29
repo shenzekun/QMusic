@@ -30,8 +30,9 @@
             margin-left: -5px;
             margin-top: -1px;
         }
-        &::after,&::before {
-            content: "";
+        &::after,
+        &::before {
+            content: '';
             display: block;
             position: absolute;
             left: 50%;
@@ -89,6 +90,37 @@
 }
 .record-keys {
     background: #fff;
+}
+
+.mod-search-result {
+    background: #fff;
+    padding: 15px 15px 10px 15px;
+    & .result-tit {
+        color: rgba(0, 0, 0, 0.6);
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    & .result-tags {
+        font-size: 0;
+    }
+    & .tag {
+        display: inline-block;
+        font-size: 14px;
+        padding: 0 10px;
+        height: 30px;
+        line-height: 30px;
+        color: #000;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 99px;
+        word-break: keep-all;
+        margin-bottom: 10px;
+        margin-right: 14px;
+    }
+    & .tag-hot {
+        color: #fc4524;
+        border-color: #fc4524;
+    }
 }
 .search-results {
     .song-item {

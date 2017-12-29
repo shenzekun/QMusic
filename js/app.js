@@ -4,17 +4,26 @@ import tab from './tab'
 import {TopList} from './toplist.js'
 import {Search} from './search'
 import {MusicPlayer,Progress,LyricsPlayer} from './player';
+import {HotKey} from './hotkey';
+
 let recommend = new Recommend(document.querySelector('.rec-view')).start()
 
-let toplist = new TopList(document.querySelector('.rank-view')).start()
+let hotkey = new HotKey(document.querySelector('.result-tags')).start()
 
-let s = new Search().search();
+let search = new Search().search();
+
+let toplist = new TopList(document.querySelector('.rec-view')).start()
+
 let player = new MusicPlayer(document.querySelector('#player'));
-document.querySelector('#show_player').addEventListener('click',()=>{
+
+document.querySelector('#show_player').addEventListener('click',() => {
     player.show();
 })
+
 onHashChange();
+
 addEventListener('hashchange',onHashChange);
+
 function onHashChange() {
     let hash = location.hash
     if (/#player\?.+/.test(hash)) {
