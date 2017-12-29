@@ -30,5 +30,3 @@ function onHashChange() {
         player.hide();
     }
 }
-
-

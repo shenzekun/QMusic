@@ -9,7 +9,9 @@ export class Search {
         this.page = 1//默认页数为1
         this.isLoad = true //能否继续加载数据
         this.fetching = false //正在 fetch
-        this.cancel = document.querySelector(".search-cancel")
+        this.history = []
+        this.delete = document.querySelector('.icon-delete')
+        this.cancel = document.querySelector('.search-cancel')
         this.input.addEventListener('keyup',this.onEnter.bind(this))
         window.addEventListener('scroll',this.onScroll.bind(this))
         window.addEventListener('click',this.onClick.bind(this))
@@ -24,20 +26,67 @@ export class Search {
     onEnter(event) {
         //获取输入的值,并且去除两边的空格
         let keyword = event.target.value.trim()
-        //如果为空，去除显示的歌
-        if (!keyword) return this.reset()
+        if (keyword) {
+            this.delete.classList.remove('hide')
+        } else {
+            this.delete.classList.add('hide')
+            return this.reset()
+        }
         //如果不是 enter 直接返回
         if (event.keyCode !== 13) return
         this.search(keyword)
     }
 
+    /**
+     * @description 点击事件
+     * @param {any} e 
+     * @memberof Search
+     */
     onClick(e) {
-        console.log(e.target);
+        // console.log(e.target);
         if (e.target === this.input) {
             this.cancel.classList.remove('hide');
         } 
         if (e.target === this.cancel) {
             this.cancel.classList.add('hide');
+            this.delete.classList.add('hide');
+            this.input.value = '';
+            this.reset()
+        }
+        if (e.target === this.delete) {
+            this.input.value = ''
+            this.delete.classList.add('hide')
+        }
+    }
+
+    addHistory(keyword) {
+        console.log('keyword' + keyword);
+        let index = this.history.indexOf(keyword);
+        if (index === -1) {
+            this.history.unshift(keyword)
+            localStorage.setItem()
+        }
+    }
+    renderHistory() {
+        if (this.history.length > 0) {
+            let historyHTML = this.history.map(item => `
+                <li>
+                    <a href="#" class="record-main">
+                        <span class="icon icon-clock"></span>
+                        <span class="record-con ellipsis">${item}</span>
+                        <span class="icon icon-close"></span>
+                    </a>
+                </li>
+            `).join('')
+            historyHTML += `
+                <p class="record-clear-btn record-delete">清除搜索记录</p>
+            `
+            console.log(historyHTML)
+            console.log(this.$history)
+            this.$history.innerHTML = historyHTML
+        } else if (this.history.length === 0) {
+            this.$history.innerHTML = ''
+            this.history = []
         }
     }
 

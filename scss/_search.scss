@@ -9,6 +9,39 @@
         background: #fff;
         padding: 8px 12px 8px 35px;
     }
+    .icon-delete {
+        position: absolute;
+        top: 9px;
+        right: 12px;
+        width: 18px;
+        height: 18px;
+        background: #b1b1b1;
+        border-radius: 99px;
+        text-indent: -9999px;
+        &::after {
+            width: 2px;
+            height: 10px;
+            margin-left: -1px;
+            margin-top: -5px;
+        }
+        &::before {
+            width: 10px;
+            height: 2px;
+            margin-left: -5px;
+            margin-top: -1px;
+        }
+        &::after,&::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            background: #fff;
+            -webkit-transform: rotate(45deg);
+        }
+    }
+
     .search-cancel {
         margin-top: 8px;
         font-size: 14px;
@@ -54,7 +87,9 @@
         text-indent: -999px;
     }
 }
-
+.record-keys {
+    background: #fff;
+}
 .search-results {
     .song-item {
         display: block;
