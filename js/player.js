@@ -27,6 +27,7 @@ export class MusicPlayer {
         let audio = document.createElement('audio');
         audio.id = `player-${Math.floor(Math.random() * 100)}-${+new Date()}`;
         // console.log(audio.id)
+        //播放结束的时候
         audio.addEventListener('ended', () => {
             this.audio.play();
             this.lyrics.restart();

@@ -9,7 +9,10 @@ let recommend = new Recommend(document.querySelector('.rec-view')).start()
 let toplist = new TopList(document.querySelector('.rank-view')).start()
 
 let s = new Search().search();
-let player = new MusicPlayer(document.querySelector('#player'))
+let player = new MusicPlayer(document.querySelector('#player'));
+document.querySelector('#show_player').addEventListener('click',()=>{
+    player.show();
+})
 onHashChange();
 addEventListener('hashchange',onHashChange);
 function onHashChange() {

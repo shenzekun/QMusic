@@ -3,14 +3,16 @@ import {searchUrl} from './helper';
 export class Search {
     constructor() {
         this.input = document.querySelector('#search')
-        this.input.addEventListener('keyup',this.onEnter.bind(this))
         this.songs = document.querySelector('.song-list')
         this.songsObject = {}//存放歌曲
         this.keyword = '' //输入搜索的值
         this.page = 1//默认页数为1
         this.isLoad = true //能否继续加载数据
         this.fetching = false //正在 fetch
+        this.cancel = document.querySelector(".search-cancel")
+        this.input.addEventListener('keyup',this.onEnter.bind(this))
         window.addEventListener('scroll',this.onScroll.bind(this))
+        window.addEventListener('click',this.onClick.bind(this))
     }
 
     /**
@@ -27,6 +29,16 @@ export class Search {
         //如果不是 enter 直接返回
         if (event.keyCode !== 13) return
         this.search(keyword)
+    }
+
+    onClick(e) {
+        console.log(e.target);
+        if (e.target === this.input) {
+            this.cancel.classList.remove('hide');
+        } 
+        if (e.target === this.cancel) {
+            this.cancel.classList.add('hide');
+        }
     }
 
     /**
