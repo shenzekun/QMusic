@@ -90,6 +90,75 @@
 }
 .record-keys {
     background: #fff;
+    li {
+        border-top: 1px solid #ededed;
+        padding: 0 15px;
+        list-style: none;
+        .record-main {
+            position: relative;
+            display: block;
+            height: 44px;
+            line-height: 44px;
+            .icon-clock {
+                position: absolute;
+                left: 0;
+                top: 12px;
+                width: 20px;
+                height: 20px;
+                background-image: url(../images/clock_ic.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                text-indent: -999px;
+            }
+            .record-con {
+                position: absolute;
+                left: 40px;
+                right: 50px;
+                display: block;
+                height: 44px;
+                line-height: 44px;
+                color: #000;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .icon-close {
+                position: absolute;
+                right: 0;
+                top: 12px;
+                width: 20px;
+                height: 20px;
+            }
+            .icon-close:before,
+            .icon-close:after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                content: '';
+                background: rgba(0, 0, 0, 0.6);
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+            .icon-close:before {
+                width: 17px;
+                height: 1px;
+                top: 8px;
+            }
+            .icon-close:after {
+                width: 1px;
+                height: 17px;
+                left: 8px;
+            }
+        }
+    }
+    .record-delete {
+        text-align: center;
+        font-size: 12px;
+        height: 44px;
+        line-height: 44px;
+        color: #47c88a;
+    }
 }
 
 .mod-search-result {

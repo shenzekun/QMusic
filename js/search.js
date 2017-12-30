@@ -12,9 +12,15 @@ export class Search {
         this.history = []
         this.delete = document.querySelector('.icon-delete')
         this.cancel = document.querySelector('.search-cancel')
+        this.hotKeys = document.querySelector('#hot-keys')
+        this.recordKeys = document.querySelector('.record-keys')
         this.input.addEventListener('keyup',this.onEnter.bind(this))
+
         window.addEventListener('scroll',this.onScroll.bind(this))
         window.addEventListener('click',this.onClick.bind(this))
+
+        this.HISTORY_KEY = 'search_history'
+        this.history = localStorage.getItem(this.HISTORY_KEY) ? localStorage.getItem(this.HISTORY_KEY).split(',') : []
     }
 
     /**
@@ -34,6 +40,8 @@ export class Search {
         }
         //如果不是 enter 直接返回
         if (event.keyCode !== 13) return
+        this.recordKeys.classList.add('hide')
+        this.addHistory(keyword)
         this.search(keyword)
     }
 
@@ -44,29 +52,72 @@ export class Search {
      */
     onClick(e) {
         // console.log(e.target);
+        //如果点击到了输入按钮
         if (e.target === this.input) {
-            this.cancel.classList.remove('hide');
-        } 
-        if (e.target === this.cancel) {
-            this.cancel.classList.add('hide');
-            this.delete.classList.add('hide');
-            this.input.value = '';
+            this.cancel.classList.remove('hide')
+            this.hotKeys.classList.add('hide')
+            this.recordKeys.classList.remove('hide')
+            this.renderHistory()
             this.reset()
         }
+        //如果点击到了取消按钮
+        if (e.target === this.cancel) {
+            this.cancel.classList.add('hide')
+            this.delete.classList.add('hide')
+            this.hotKeys.classList.remove('hide')
+            this.recordKeys.classList.add('hide')
+            this.input.value = ''
+            this.reset()
+        }
+        //如果点击到了删除按钮
         if (e.target === this.delete) {
             this.input.value = ''
             this.delete.classList.add('hide')
+            this.reset()
+        }
+        //如果匹配到了清除搜索记录
+        if (e.target.matches('.record-delete')) {
+            this.history = []
+            localStorage.setItem(this.HISTORY_KEY,this.history)
+            this.recordKeys.innerHTML = ''
+        }
+        //如果匹配到了单条记录的删除按钮
+        if (e.target.matches('.icon-close')) {
+            const index = this.history.indexOf(e.target.previousElementSibling.innerHTML)
+            this.history.splice(index,1)
+            localStorage.setItem(this.HISTORY_KEY,this.history)
+            this.renderHistory()
+        }
+        if (e.target.matches('.tag-keyword') || e.target.matches('.record-con')) {
+            console.log(e.target.innerHTML)
+            this.input.value = e.target.innerHTML
+            this.keyword = e.target.innerHTML
+            this.delete.classList.remove('hide')
+            this.cancel.classList.remove('hide')
+            this.hotKeys.classList.add('hide')
+            this.addHistory(this.keyword)
+            this.search(this.keyword)
         }
     }
 
+    /**
+     * @description 添加历史
+     * @param {any} keyword 
+     * @memberof Search
+     */
     addHistory(keyword) {
         console.log('keyword' + keyword);
         let index = this.history.indexOf(keyword);
         if (index === -1) {
             this.history.unshift(keyword)
-            localStorage.setItem()
+            localStorage.setItem(this.HISTORY_KEY,this.history)
         }
     }
+
+    /**
+     * @description 渲染历史
+     * @memberof Search
+     */
     renderHistory() {
         if (this.history.length > 0) {
             let historyHTML = this.history.map(item => `
@@ -79,13 +130,13 @@ export class Search {
                 </li>
             `).join('')
             historyHTML += `
-                <p class="record-clear-btn record-delete">清除搜索记录</p>
+                <p class="record-delete">清除搜索记录</p>
             `
-            console.log(historyHTML)
-            console.log(this.$history)
-            this.$history.innerHTML = historyHTML
+            // console.log(historyHTML)
+            // console.log(this.recordKeys)
+            this.recordKeys.innerHTML = historyHTML
         } else if (this.history.length === 0) {
-            this.$history.innerHTML = ''
+            this.recordKeys.innerHTML = ''
             this.history = []
         }
     }
