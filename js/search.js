@@ -106,7 +106,7 @@ export class Search {
      * @memberof Search
      */
     addHistory(keyword) {
-        console.log('keyword' + keyword);
+        // console.log('keyword： ' + keyword);
         let index = this.history.indexOf(keyword);
         if (index === -1) {
             this.history.unshift(keyword)
