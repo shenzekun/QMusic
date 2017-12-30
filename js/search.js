@@ -10,10 +10,10 @@ export class Search {
         this.isLoad = true //能否继续加载数据
         this.fetching = false //正在 fetch
         this.history = []
-        this.delete = document.querySelector('.icon-delete')
-        this.cancel = document.querySelector('.search-cancel')
-        this.hotKeys = document.querySelector('#hot-keys')
-        this.recordKeys = document.querySelector('.record-keys')
+        this.delete = document.querySelector('.icon-delete')//删除
+        this.cancel = document.querySelector('.search-cancel')//取消
+        this.hotKeys = document.querySelector('#hot-keys')//热门歌曲
+        this.recordKeys = document.querySelector('.record-keys')//搜索记录
         this.input.addEventListener('keyup',this.onEnter.bind(this))
 
         window.addEventListener('scroll',this.onScroll.bind(this))
@@ -88,8 +88,9 @@ export class Search {
             localStorage.setItem(this.HISTORY_KEY,this.history)
             this.renderHistory()
         }
+        //如果点到了热门搜索的关键词或者点到了搜索记录的歌
         if (e.target.matches('.tag-keyword') || e.target.matches('.record-con')) {
-            console.log(e.target.innerHTML)
+            // console.log(e.target.innerHTML)
             this.input.value = e.target.innerHTML
             this.keyword = e.target.innerHTML
             this.delete.classList.remove('hide')
