@@ -2,7 +2,8 @@ import { LYRICS_URL, SEARCH_URL } from './content';
 
 //歌 url
 export function songUrl(id) {
-    return `http://ws.stream.qqmusic.qq.com/${id}.m4a?fromtag=46`;
+    // return `http://ws.stream.qqmusic.qq.com/${id}.m4a?fromtag=46`;
+    return `http://isure.stream.qqmusic.qq.com/C100${id}.m4a?fromtag=32`
 }
 
 //歌词 url

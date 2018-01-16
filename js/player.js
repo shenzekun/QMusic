@@ -93,8 +93,10 @@ export class MusicPlayer {
                 this.el.querySelector('.icon-action').className = 'icon-action icon-play';
             }
 
+            this.songmid = options.songmid;
+            console.log(this.songmid);
             this.songid = options.songid;
-            this.audio.src = songUrl(this.songid);
+            this.audio.src = songUrl(this.songmid);
             this.fetching = true;
             fetch(lyricsUrl(this.songid))
                 .then(res => res.json())
