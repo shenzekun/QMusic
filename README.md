@@ -64,3 +64,7 @@ npm install
 * css
 
 * 使用 [Now](https://zeit.co/) 部署项目
+
+### 扩展
+
+[vue全家桶+typescript重构qq音乐移动端](https://github.com/shenzekun/vue-qq-music)
